@@ -106,10 +106,10 @@ function startWebRTC(isOfferer) {
 
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     // Display your local video in #localVideo element
-     window.localStream = stream;
-    localVideo.srcObject = stream;
+    window.localStream = stream;
+    localVideo.srcObject = localStream;
     // Add your stream to be sent to the conneting peer
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+    stream.getTracks().forEach(track => pc.addTrack(track, localStream));
   }, onError);
 
   // Listen to signaling data from Scaledrone
@@ -146,17 +146,12 @@ function localDescCreated(desc) {
 
 
 function cameraOff() {
- 
-    localStream.getVideoTracks()[0].stop();
-  
-
+  localStream.getVideoTracks()[0].stop();
 }
 
 function cameraOn() {
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     localStream = stream;
-    localVideo.srcObject = stream;
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 }
 
@@ -164,13 +159,9 @@ function cameraOn() {
 function micOn() {
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     localStream = stream;
-    localVideo.srcObject = stream;
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 }
 
 function micOff() {
-
-    localStream.getAudioTracks()[0].stop();
-  
+  localStream.getAudioTracks()[0].stop();
 }
