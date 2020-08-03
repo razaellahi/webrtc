@@ -4,7 +4,6 @@ if (!location.hash) {
 }
 const roomHash = location.hash.substring(1);
 
-var localStream;
 
 // TODO: Replace with your own channel ID
 const drone = new ScaleDrone('yiS12Ts5RdNhebyM');
@@ -107,7 +106,7 @@ function startWebRTC(isOfferer) {
 
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     // Display your local video in #localVideo element
-    localStream = stream;
+     window.localStream = stream;
     localVideo.srcObject = localStream;
     // Add your stream to be sent to the conneting peer
     stream.getTracks().forEach(track => pc.addTrack(track, localStream));
@@ -147,12 +146,9 @@ function localDescCreated(desc) {
 
 
 function cameraOff() {
-  navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
-    localStream = stream;
+ 
     localStream.getVideoTracks()[0].stop();
-    localVideo.srcObject = localStream;
-    stream.getTracks().forEach(track => pc.addTrack(track, localStream));
-  }, onError);
+  
 
 }
 
@@ -174,10 +170,7 @@ function micOn() {
 }
 
 function micOff() {
-  navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
-    localStream = stream;
+
     localStream.getAudioTracks()[0].stop();
-    localVideo.srcObject = localStream;
-    stream.getTracks().forEach(track => pc.addTrack(track, localStream));
-  }, onError);
+  
 }
