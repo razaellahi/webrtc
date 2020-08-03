@@ -4,6 +4,8 @@ if (!location.hash) {
 }
 const roomHash = location.hash.substring(1);
 
+var localStream;
+
 // TODO: Replace with your own channel ID
 const drone = new ScaleDrone('yiS12Ts5RdNhebyM');
 // Room name needs to be prefixed with 'observable-'
@@ -61,7 +63,7 @@ drone.on('open', error => {
   // We're connected to the room and received an array of 'members'
   // connected to the room (including us). Signaling server is ready.
   room.on('members', members => {
-    console.log("19")
+    console.log("20")
     console.log('MEMBERS', members);
     // If we are the second user to connect to the room we will be creating the offer
     const isOfferer = members.length === 2;
@@ -105,8 +107,8 @@ function startWebRTC(isOfferer) {
 
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     // Display your local video in #localVideo element
-    window.localStream = stream;
-    localVideo.srcObject = window.localStream;
+    localStream = stream;
+    localVideo.srcObject = localStream;
     // Add your stream to be sent to the conneting peer
     stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
@@ -145,22 +147,26 @@ function localDescCreated(desc) {
 
 
 function cameraOff() {
-  window.localStream.getVideoTracks()[0].stop();
+  localStream.getVideoTracks()[0].stop();
 }
 
 function cameraOn() {
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
-    window.localStream = stream;
+    localStream = stream;
+    localVideo.srcObject = localStream;
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 }
 
 
 function micOn() {
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
-    window.localStream = stream;
+    localStream = stream;
+    localVideo.srcObject = localStream;
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 }
 
 function micOff() {
-  window.localStream.getAudioTracks()[0].stop();
+  localStream.getAudioTracks()[0].stop();
 }
