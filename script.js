@@ -145,10 +145,9 @@ function localDescCreated(desc) {
 
 
 function cameraOff() {
-  controls.video = false;
   navigator.mediaDevices.getUserMedia(controls).then(stream => {
     // Display your local video in #localVideo element
-    stream.getVideoTracks()[0].enabled = false;
+    stream.getVideoTracks()[0].stop();
 
     localVideo.srcObject = stream;
     // Add your stream to be sent to the conneting peer
@@ -157,7 +156,6 @@ function cameraOff() {
 }
 
 function cameraOn() {
-  controls.video = true;
   navigator.mediaDevices.getUserMedia(controls).then(stream => {
     // Display your local video in #localVideo element
     stream.getVideoTracks()[0].enabled = true;
@@ -170,7 +168,6 @@ function cameraOn() {
 
 
 function micOn() {
-  controls.audio = true;
   navigator.mediaDevices.getUserMedia(controls).then(stream => {
     // Display your local video in #localVideo element
     stream.getAudioTracks()[0].enabled = true;
@@ -182,10 +179,9 @@ function micOn() {
 }
 
 function micOff() {
-  controls.audio = false;
   navigator.mediaDevices.getUserMedia(controls).then(stream => {
     // Display your local video in #localVideo element
-    stream.getAudioTracks()[0].enabled = false;
+    stream.getAudioTracks()[0].stop();
 
     localVideo.srcObject = stream;
     // Add your stream to be sent to the conneting peer
