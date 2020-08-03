@@ -155,8 +155,8 @@ function cameraOff() {
 function cameraOn() {
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     localStream = stream;
-    localVideo.srcObject = localStream;
-    stream.getTracks().forEach(track => pc.addTrack(track, localStream));
+    localVideo.srcObject = stream;
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 }
 
@@ -164,8 +164,8 @@ function cameraOn() {
 function micOn() {
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     localStream = stream;
-    localVideo.srcObject = localStream;
-    stream.getTracks().forEach(track => pc.addTrack(track, localStream));
+    localVideo.srcObject = stream;
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 }
 
