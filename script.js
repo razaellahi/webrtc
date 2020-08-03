@@ -16,7 +16,6 @@ const roomName = 'observable-' + roomHash;
 //   }]
 // };
 
-var controls = { audio: true, video: true }
 
 const configuration = {
   iceServers: [{
@@ -62,7 +61,7 @@ drone.on('open', error => {
   // We're connected to the room and received an array of 'members'
   // connected to the room (including us). Signaling server is ready.
   room.on('members', members => {
-    console.log("17")
+    console.log("18")
     console.log('MEMBERS', members);
     // If we are the second user to connect to the room we will be creating the offer
     const isOfferer = members.length === 2;
@@ -104,7 +103,7 @@ function startWebRTC(isOfferer) {
     }
   };
 
-  navigator.mediaDevices.getUserMedia(controls).then(stream => {
+  navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     // Display your local video in #localVideo element
     window.localStream = stream;
     localVideo.srcObject = window.localStream;
@@ -150,25 +149,15 @@ function cameraOff() {
 }
 
 function cameraOn() {
-  navigator.mediaDevices.getUserMedia(controls).then(stream => {
-    // Display your local video in #localVideo element
-    stream.getVideoTracks()[0].enabled = true;
-
-    localVideo.srcObject = stream;
-    // Add your stream to be sent to the conneting peer
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+  navigator.mediaDevices.getUserMedia({ audio: false, video: true }).then(stream => {
+    window.localStream = stream;
   }, onError);
 }
 
 
 function micOn() {
-  navigator.mediaDevices.getUserMedia(controls).then(stream => {
-    // Display your local video in #localVideo element
-    stream.getAudioTracks()[0].enabled = true;
-
-    localVideo.srcObject = stream;
-    // Add your stream to be sent to the conneting peer
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+  navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(stream => {
+    window.localStream = stream;
   }, onError);
 }
 
