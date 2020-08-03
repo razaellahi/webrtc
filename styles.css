@@ -58,7 +58,7 @@ body {
     position: relative;
     border: 1px solid #bfbfbf;
     border-radius: 3px;
-    object-fit: fill;
+    /* object-fit: fill; */
     width: 100%;
     height: 94%;
   }
