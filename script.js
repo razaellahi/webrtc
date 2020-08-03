@@ -161,11 +161,7 @@ function cameraOff() {
           track.stop();
       }
   });
-   // stream.getVideoTracks()[0].enabled = false;
-    localVideo.srcObject = stream;
-
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
-
+ 
   }, onError);
 }
 
@@ -176,9 +172,7 @@ function cameraOn() {
   }).then(stream => {
     // Display your local video in #localVideo element
     stream.getVideoTracks()[0].enabled = true;
-    localVideo.srcObject = stream;
-    // Add your stream to be sent to the conneting peer
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+   
   }, onError);
 }
 
@@ -190,9 +184,7 @@ function micOn() {
   }).then(stream => {
     // Display your local video in #localVideo element
     stream.getAudioTracks()[0].enabled = true;
-    localVideo.srcObject = stream;
-    // Add your stream to be sent to the conneting peer
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+    
   }, onError);
 }
 
@@ -207,9 +199,6 @@ function micOff() {
           track.stop();
       }
   });
-  
-    localVideo.srcObject = stream;
-    // Add your stream to be sent to the conneting peer
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+
   }, onError);
 }
