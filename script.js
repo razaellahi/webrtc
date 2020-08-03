@@ -144,3 +144,31 @@ function localDescCreated(desc) {
     onError
   );
 }
+
+function mute(){
+  alert("hello")
+}
+
+function cameraOff (){
+  navigator.mediaDevices.getUserMedia({
+    audio: true,
+    video: true,
+  }).then(stream => {
+    // Display your local video in #localVideo element
+    localVideo.srcObject = null;
+    // Add your stream to be sent to the conneting peer
+    stream.getVideoTracks().forEach(track => track.stop())
+  }, onError);
+}
+
+function cameraOn (){
+  navigator.mediaDevices.getUserMedia({
+    audio: true,
+    video: true,
+  }).then(stream => {
+    // Display your local video in #localVideo element
+    localVideo.srcObject = stream;
+    // Add your stream to be sent to the conneting peer
+    stream.getVideoTracks().forEach(track => pc.addTrack(track, stream));
+  }, onError);
+}
