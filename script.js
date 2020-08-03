@@ -62,7 +62,7 @@ drone.on('open', error => {
   // We're connected to the room and received an array of 'members'
   // connected to the room (including us). Signaling server is ready.
   room.on('members', members => {
-    console.log("16")
+    console.log("17")
     console.log('MEMBERS', members);
     // If we are the second user to connect to the room we will be creating the offer
     const isOfferer = members.length === 2;
@@ -106,7 +106,8 @@ function startWebRTC(isOfferer) {
 
   navigator.mediaDevices.getUserMedia(controls).then(stream => {
     // Display your local video in #localVideo element
-    localVideo.srcObject = stream;
+    window.localStream = stream;
+    localVideo.srcObject = window.localStream;
     // Add your stream to be sent to the conneting peer
     stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
@@ -145,14 +146,7 @@ function localDescCreated(desc) {
 
 
 function cameraOff() {
-  navigator.mediaDevices.getUserMedia(controls).then(stream => {
-    // Display your local video in #localVideo element
-    stream.getVideoTracks()[0].stop();
-
-    localVideo.srcObject = stream;
-    // Add your stream to be sent to the conneting peer
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
-  }, onError);
+  localStream.getVideoTracks()[0].stop();
 }
 
 function cameraOn() {
@@ -179,12 +173,5 @@ function micOn() {
 }
 
 function micOff() {
-  navigator.mediaDevices.getUserMedia(controls).then(stream => {
-    // Display your local video in #localVideo element
-    stream.getAudioTracks()[0].stop();
-
-    localVideo.srcObject = stream;
-    // Add your stream to be sent to the conneting peer
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
-  }, onError);
+  localStream.getAudioTracks()[0].stop();
 }
