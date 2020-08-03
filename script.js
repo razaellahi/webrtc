@@ -107,9 +107,9 @@ function startWebRTC(isOfferer) {
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     // Display your local video in #localVideo element
      window.localStream = stream;
-    localVideo.srcObject = localStream;
+    localVideo.srcObject = stream;
     // Add your stream to be sent to the conneting peer
-    stream.getTracks().forEach(track => pc.addTrack(track, localStream));
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 
   // Listen to signaling data from Scaledrone
