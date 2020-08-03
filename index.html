@@ -9,16 +9,30 @@
 </head>
 
 <body>
+  <div class="speaker-status">
+    <img class="speakeron-class" id="speakeron" src="./icons/speakeron.svg"></img>
+    <img class="speakeroff-class" id="speakeroff" src="./icons/speakeroff.svg"></img>
+  </div>
   <video class="remote" id="remoteVideo" autoplay></video>
   <video class="local" id="localVideo" autoplay muted></video>
   <div class="controls">
-    <img onclick="cameraOn()" src="./icons/camon.svg"></img>
-    <img onclick="cameraOff()" src="./icons/camoff.svg"></img>
+    <img id="camon" onclick="cameraOn()" src="./icons/camon.svg"></img>
+    <img id="camoff" onclick="cameraOff()" src="./icons/camoff.svg"></img>
     <img class="drop" src="./icons/contact.svg"></img>
-    <img onclick="micOff()" src="./icons/micoff.svg"></img>
-    <img onclick="micOn()" src="./icons/unmute.svg"></img>
+    <img id="micoff" onclick="micOff()" src="./icons/micoff.svg"></img>
+    <img id="micon" onclick="micOn()" src="./icons/unmute.svg"></img>
+    <script>
+      var micOnTag = document.getElementById("micon");
+      micOnTag.style.display = "none";
 
+      var camOnTag = document.getElementById("camon");
+      camOnTag.style.display = "none";
+
+      var spkOffTag = document.getElementById("speakeroff");
+      spkOffTag.style.display = "none";
+    </script>
   </div>
+
   <script src="script.js"></script>
 </body>
 

@@ -12,6 +12,11 @@ img{
     border-radius: 50%;
     padding: 10px;
     cursor: pointer;
+   box-shadow: 2px 2px 9px 1px darkgrey;
+}
+
+img:hover {
+  box-shadow: 2px 2px 9px 5px darkgrey;
 }
 
 body {
@@ -73,4 +78,21 @@ body {
     width: 21%;
     box-shadow: rgba(156, 172, 172, 0.2) 0px 2px 2px, rgba(156, 172, 172, 0.2) 0px 4px 4px, rgba(156, 172, 172, 0.2) 0px 8px 8px, rgba(156, 172, 172, 0.2) 0px 16px 16px, rgba(156, 172, 172, 0.2) 0px 32px 32px, rgba(156, 172, 172, 0.2) 0px 64px 64px;
 
+  }
+
+  .speakeroff-class{
+    background: none !important;
+    box-shadow: none !important;
+    margin-left: 5px;
+  }
+
+  .speakeron-class{
+    background: none !important;
+    box-shadow: none !important;
+  }
+
+  .speaker-status{
+    position: absolute;
+    top: 1%;
+    left: 5px;
   }

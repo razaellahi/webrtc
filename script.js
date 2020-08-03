@@ -44,7 +44,7 @@ const configuration = {
 let room;
 let pc;
 
-let streamObj = { localStream: null }
+let streamObj = { localStream: null };
 
 function onSuccess() { };
 function onError(error) {
@@ -149,10 +149,23 @@ function localDescCreated(desc) {
 
 function cameraOff() {
   streamObj.localStream.getVideoTracks()[0].enabled = false;
+
+  var camOnTag = document.getElementById("camon");
+  camOnTag.style.display = "initial";
+
+  var camOffTag = document.getElementById("camoff");
+  camOffTag.style.display = "none";
+
 }
 
 function cameraOn() {
   streamObj.localStream.getVideoTracks()[0].enabled = true;
+
+  var camOnTag = document.getElementById("camon");
+  camOnTag.style.display = "none";
+
+  var camOffTag = document.getElementById("camoff");
+  camOffTag.style.display = "initial";
 
 }
 
@@ -160,8 +173,31 @@ function cameraOn() {
 function micOn() {
   streamObj.localStream.getAudioTracks()[0].enabled = true;
 
+  var micOnTag = document.getElementById("micon");
+  micOnTag.style.display = "none";
+
+  var micOffTag = document.getElementById("micoff");
+  micOffTag.style.display = "initial";
+
+  var spkOffTag = document.getElementById("speakeroff");
+  spkOffTag.style.display = "none";
+
+  var spkOnTag = document.getElementById("speakeron");
+  spkOnTag.style.display = "initial";
 }
 
 function micOff() {
   streamObj.localStream.getAudioTracks()[0].enabled = false;
+
+  var micOnTag = document.getElementById("micon");
+  micOnTag.style.display = "initial";
+
+  var micOffTag = document.getElementById("micoff");
+  micOffTag.style.display = "none";
+
+  var spkOffTag = document.getElementById("speakeroff");
+  spkOffTag.style.display = "initial";
+
+  var spkOnTag = document.getElementById("speakeron");
+  spkOnTag.style.display = "none";
 }
