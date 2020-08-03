@@ -145,7 +145,7 @@ function localDescCreated(desc) {
 
 
 function cameraOff() {
-  localStream.getVideoTracks()[0].stop();
+  window.localStream.getVideoTracks()[0].stop();
 }
 
 function cameraOn() {
@@ -162,5 +162,5 @@ function micOn() {
 }
 
 function micOff() {
-  localStream.getAudioTracks()[0].stop();
+  window.localStream.getAudioTracks()[0].stop();
 }
