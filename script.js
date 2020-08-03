@@ -61,7 +61,7 @@ drone.on('open', error => {
   // We're connected to the room and received an array of 'members'
   // connected to the room (including us). Signaling server is ready.
   room.on('members', members => {
-    console.log("18")
+    console.log("19")
     console.log('MEMBERS', members);
     // If we are the second user to connect to the room we will be creating the offer
     const isOfferer = members.length === 2;
@@ -149,14 +149,14 @@ function cameraOff() {
 }
 
 function cameraOn() {
-  navigator.mediaDevices.getUserMedia({ audio: false, video: true }).then(stream => {
+  navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     window.localStream = stream;
   }, onError);
 }
 
 
 function micOn() {
-  navigator.mediaDevices.getUserMedia({ audio: true, video: false }).then(stream => {
+  navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     window.localStream = stream;
   }, onError);
 }
