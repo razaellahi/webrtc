@@ -145,30 +145,62 @@ function localDescCreated(desc) {
   );
 }
 
-function mute(){
+function mute() {
   alert("hello")
 }
 
-function cameraOff (){
+function cameraOff() {
   navigator.mediaDevices.getUserMedia({
     audio: true,
     video: true,
   }).then(stream => {
     // Display your local video in #localVideo element
-    localVideo.srcObject = null;
     // Add your stream to be sent to the conneting peer
-    stream.getVideoTracks().forEach(track => track.stop())
+    // stream.getVideoTracks().forEach(track => track.stop());
+    stream.getVideoTracks()[0].enabled = false;
+    localVideo.srcObject = stream;
+
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+
   }, onError);
 }
 
-function cameraOn (){
+function cameraOn() {
   navigator.mediaDevices.getUserMedia({
     audio: true,
     video: true,
   }).then(stream => {
     // Display your local video in #localVideo element
+    stream.getVideoTracks()[0].enabled = true;
     localVideo.srcObject = stream;
     // Add your stream to be sent to the conneting peer
-    stream.getVideoTracks().forEach(track => pc.addTrack(track, stream));
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+  }, onError);
+}
+
+
+function micOn() {
+  navigator.mediaDevices.getUserMedia({
+    audio: true,
+    video: true,
+  }).then(stream => {
+    // Display your local video in #localVideo element
+    stream.getAudioTracks()[0].enabled = true;
+    localVideo.srcObject = stream;
+    // Add your stream to be sent to the conneting peer
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+  }, onError);
+}
+
+function micOff() {
+  navigator.mediaDevices.getUserMedia({
+    audio: true,
+    video: true,
+  }).then(stream => {
+    // Display your local video in #localVideo element
+    stream.getAudioTracks()[0].enabled = true;
+    localVideo.srcObject = stream;
+    // Add your stream to be sent to the conneting peer
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 }
