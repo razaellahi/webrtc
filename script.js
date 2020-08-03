@@ -145,9 +145,6 @@ function localDescCreated(desc) {
   );
 }
 
-function mute() {
-  alert("hello")
-}
 
 function cameraOff() {
   navigator.mediaDevices.getUserMedia({
@@ -155,13 +152,11 @@ function cameraOff() {
     video: true,
   }).then(stream => {
     // Display your local video in #localVideo element
+    stream.getVideoTracks()[0].enabled = false;
+
+    localVideo.srcObject = stream;
     // Add your stream to be sent to the conneting peer
-    stream.getTracks().forEach(function(track) {
-      if (track.readyState == 'live' && track.kind === 'video') {
-          track.stop();
-      }
-  });
- 
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 }
 
@@ -172,7 +167,10 @@ function cameraOn() {
   }).then(stream => {
     // Display your local video in #localVideo element
     stream.getVideoTracks()[0].enabled = true;
-   
+
+    localVideo.srcObject = stream;
+    // Add your stream to be sent to the conneting peer
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 }
 
@@ -184,7 +182,10 @@ function micOn() {
   }).then(stream => {
     // Display your local video in #localVideo element
     stream.getAudioTracks()[0].enabled = true;
-    
+
+    localVideo.srcObject = stream;
+    // Add your stream to be sent to the conneting peer
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 }
 
@@ -194,11 +195,10 @@ function micOff() {
     video: true,
   }).then(stream => {
     // Display your local video in #localVideo element
-    stream.getTracks().forEach(function(track) {
-      if (track.readyState == 'live' && track.kind === 'audio') {
-          track.stop();
-      }
-  });
+    stream.getAudioTracks()[0].enabled = false;
 
+    localVideo.srcObject = stream;
+    // Add your stream to be sent to the conneting peer
+    stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 }
