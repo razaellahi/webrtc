@@ -44,6 +44,8 @@ const configuration = {
 let room;
 let pc;
 
+let streamObj = { localStream: null }
+
 function onSuccess() { };
 function onError(error) {
   console.error(error);
@@ -106,10 +108,10 @@ function startWebRTC(isOfferer) {
 
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     // Display your local video in #localVideo element
-    window.localStream = stream;
-    localVideo.srcObject = localStream;
+    streamObj.localStream = stream;
+    localVideo.srcObject = streamObj.localStream;
     // Add your stream to be sent to the conneting peer
-    stream.getTracks().forEach(track => pc.addTrack(track, localStream));
+    stream.getTracks().forEach(track => pc.addTrack(track, streamObj.localStream));
   }, onError);
 
   // Listen to signaling data from Scaledrone
@@ -146,22 +148,20 @@ function localDescCreated(desc) {
 
 
 function cameraOff() {
-  localStream.getVideoTracks()[0].stop();
+  streamObj.localStream.getVideoTracks()[0].enabled = false;
 }
 
 function cameraOn() {
-  navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
-    localStream = stream;
-  }, onError);
+  streamObj.localStream.getVideoTracks()[0].enabled = true;
+
 }
 
 
 function micOn() {
-  navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
-    localStream = stream;
-  }, onError);
+  streamObj.localStream.getAudioTracks()[0].enabled = true;
+
 }
 
 function micOff() {
-  localStream.getAudioTracks()[0].stop();
+  streamObj.localStream.getAudioTracks()[0].enabled = false;
 }
