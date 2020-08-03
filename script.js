@@ -16,6 +16,7 @@ const roomName = 'observable-' + roomHash;
 //   }]
 // };
 
+var controls = { audio: true, video: true }
 
 const configuration = {
   iceServers: [{
@@ -61,7 +62,7 @@ drone.on('open', error => {
   // We're connected to the room and received an array of 'members'
   // connected to the room (including us). Signaling server is ready.
   room.on('members', members => {
-    console.log("15")
+    console.log("16")
     console.log('MEMBERS', members);
     // If we are the second user to connect to the room we will be creating the offer
     const isOfferer = members.length === 2;
@@ -103,10 +104,7 @@ function startWebRTC(isOfferer) {
     }
   };
 
-  navigator.mediaDevices.getUserMedia({
-    audio: true,
-    video: true,
-  }).then(stream => {
+  navigator.mediaDevices.getUserMedia(controls).then(stream => {
     // Display your local video in #localVideo element
     localVideo.srcObject = stream;
     // Add your stream to be sent to the conneting peer
@@ -147,10 +145,8 @@ function localDescCreated(desc) {
 
 
 function cameraOff() {
-  navigator.mediaDevices.getUserMedia({
-    audio: true,
-    video: true,
-  }).then(stream => {
+  controls.video = false;
+  navigator.mediaDevices.getUserMedia(controls).then(stream => {
     // Display your local video in #localVideo element
     stream.getVideoTracks()[0].enabled = false;
 
@@ -161,10 +157,8 @@ function cameraOff() {
 }
 
 function cameraOn() {
-  navigator.mediaDevices.getUserMedia({
-    audio: true,
-    video: true,
-  }).then(stream => {
+  controls.video = true;
+  navigator.mediaDevices.getUserMedia(controls).then(stream => {
     // Display your local video in #localVideo element
     stream.getVideoTracks()[0].enabled = true;
 
@@ -176,10 +170,8 @@ function cameraOn() {
 
 
 function micOn() {
-  navigator.mediaDevices.getUserMedia({
-    audio: true,
-    video: true,
-  }).then(stream => {
+  controls.audio = true;
+  navigator.mediaDevices.getUserMedia(controls).then(stream => {
     // Display your local video in #localVideo element
     stream.getAudioTracks()[0].enabled = true;
 
@@ -190,10 +182,8 @@ function micOn() {
 }
 
 function micOff() {
-  navigator.mediaDevices.getUserMedia({
-    audio: true,
-    video: true,
-  }).then(stream => {
+  controls.audio = false;
+  navigator.mediaDevices.getUserMedia(controls).then(stream => {
     // Display your local video in #localVideo element
     stream.getAudioTracks()[0].enabled = false;
 
