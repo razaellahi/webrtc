@@ -63,7 +63,7 @@ drone.on('open', error => {
   // We're connected to the room and received an array of 'members'
   // connected to the room (including us). Signaling server is ready.
   room.on('members', members => {
-    console.log("20")
+    console.log("21")
     console.log('MEMBERS', members);
     // If we are the second user to connect to the room we will be creating the offer
     const isOfferer = members.length === 2;
@@ -110,7 +110,7 @@ function startWebRTC(isOfferer) {
     localStream = stream;
     localVideo.srcObject = localStream;
     // Add your stream to be sent to the conneting peer
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+    stream.getTracks().forEach(track => pc.addTrack(track, localStream));
   }, onError);
 
   // Listen to signaling data from Scaledrone
@@ -147,14 +147,20 @@ function localDescCreated(desc) {
 
 
 function cameraOff() {
-  localStream.getVideoTracks()[0].stop();
+  navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
+    localStream = stream;
+    localStream.getVideoTracks()[0].stop();
+    localVideo.srcObject = localStream;
+    stream.getTracks().forEach(track => pc.addTrack(track, localStream));
+  }, onError);
+
 }
 
 function cameraOn() {
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     localStream = stream;
     localVideo.srcObject = localStream;
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+    stream.getTracks().forEach(track => pc.addTrack(track, localStream));
   }, onError);
 }
 
@@ -163,10 +169,15 @@ function micOn() {
   navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
     localStream = stream;
     localVideo.srcObject = localStream;
-    stream.getTracks().forEach(track => pc.addTrack(track, stream));
+    stream.getTracks().forEach(track => pc.addTrack(track, localStream));
   }, onError);
 }
 
 function micOff() {
-  localStream.getAudioTracks()[0].stop();
+  navigator.mediaDevices.getUserMedia({ audio: true, video: true }).then(stream => {
+    localStream = stream;
+    localStream.getAudioTracks()[0].stop();
+    localVideo.srcObject = localStream;
+    stream.getTracks().forEach(track => pc.addTrack(track, localStream));
+  }, onError);
 }
