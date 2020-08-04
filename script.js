@@ -200,3 +200,8 @@ function micOff() {
   var spkOnTag = document.getElementById("speakeron");
   spkOnTag.style.display = "none";
 }
+
+function exit() {
+  var win = window.open("about:blank", "_self");
+  win.close();
+}
