@@ -16,22 +16,22 @@
   <div class="local-parent">
   <div class="speaker-status">
     <img class="speakeron-class" id="speakeron" src="./icons/speakeron.svg"></img>
-    <img class="speakeroff-class" id="speakeroff" src="./icons/speakeroff.svg"></img>
+    <img class="speakeroff-class" id="speakeroff" src="./icons/micoff.svg"></img>
   </div>
   <video class="local" id="localVideo" autoplay muted></video>
 </div>
 
   <div class="controls">
-    <img id="camon" onclick="cameraOn()" src="./icons/camon.svg"></img>
-    <img id="camoff" onclick="cameraOff()" src="./icons/camoff.svg"></img>
+    <img id="camon" onclick="cameraOff()" src="./icons/camon.svg"></img>
+    <img class="bck-gr" id="camoff" onclick="cameraOn()" src="./icons/camoff.svg"></img>
+    <img class="bck-gr" id="micoff" onclick="micOn()" src="./icons/micoff.svg"></img>
+    <img id="micon" onclick="micOff()" src="./icons/unmute.svg"></img>
     <img class="drop" onclick="exit()" src="./icons/contact.svg"></img>
-    <img id="micoff" onclick="micOff()" src="./icons/micoff.svg"></img>
-    <img id="micon" onclick="micOn()" src="./icons/unmute.svg"></img>
     <script>
-      var micOnTag = document.getElementById("micon");
+      var micOnTag = document.getElementById("micoff");
       micOnTag.style.display = "none";
 
-      var camOnTag = document.getElementById("camon");
+      var camOnTag = document.getElementById("camoff");
       camOnTag.style.display = "none";
 
       var spkOffTag = document.getElementById("speakeroff");
