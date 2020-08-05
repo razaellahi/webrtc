@@ -107,7 +107,12 @@ body {
 
   .bck-gr{
     background: #ff7070 !important;
+    box-shadow: 0px 0px 2px 0px #ff7070;
   }
 
+  .bck-gr:hover{
+    background: #ff7070 !important;
+    box-shadow: 0px 0px 7px 0px #ff7070;
+  }
 
   /* 2196F3 */
