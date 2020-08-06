@@ -19,14 +19,14 @@ const roomName = 'observable-' + roomHash;
 // };
 
 
-var configuration;
-// = {
-//   iceServers: [{
-//     url: 'turn:bn-turn1.xirsys.com:3478?transport=udp',
-//     username: "h7AcWCHvJoq17jCsmZAVgGLXN5K1OTyrh6jz2KNbq4DYLUrO-Ykju95H4p0vG14gAAAAAF8i9AtyYXphZWxsYWhp",
-//     credential: "06f5cc9c-d281-11ea-a559-0242ac140004"
-//   }]
-// };
+var configuration = {
+  iceServers: [{
+    url: 'turn:bn-turn1.xirsys.com:3478?transport=udp',
+    username: "h7AcWCHvJoq17jCsmZAVgGLXN5K1OTyrh6jz2KNbq4DYLUrO-Ykju95H4p0vG14gAAAAAF8i9AtyYXphZWxsYWhp",
+    credential: "06f5cc9c-d281-11ea-a559-0242ac140004"
+  }]
+};
+
 
 // const configuration = {
 //   iceServers: [{
@@ -83,10 +83,10 @@ function sendMessage(message) {
 
 function startWebRTC(isOfferer) {
 
-  fetch("config.json").then(function (res) {
-    return res.json()
-  }).then(function (data) {
-    configuration = data.iceServers;
+  // fetch("config.json").then(function (res) {
+  //   return res.json()
+  // }).then(function (data) {
+  //   configuration = data.iceServers;
 
 
     pc = new RTCPeerConnection(configuration);
@@ -145,7 +145,7 @@ function startWebRTC(isOfferer) {
       }
     });
 
-  });
+//  });
 
 }
 
