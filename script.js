@@ -22,7 +22,7 @@ const roomName = 'observable-' + roomHash;
 //   iceServers: [{
 //     url: 'turn:numb.viagenie.ca',
 //     username: 'razaellahi531@gmail.com',
-//     credential: 'razaellahi123786'
+//     credential: '<password>'
 //   }]
 // };
 
